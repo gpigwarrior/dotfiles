@@ -1,0 +1,74 @@
+
+
+### aliases #### 
+
+alias red='redshift -O 5000'
+alias off='redshift -x'
+alias mat='/usr/local/matlab/bin/matlab;bg;exit'
+# alias to make fzf open vim
+alias f='vim "$(fzf)"'
+# fastfetch
+alias aw='firefox --new-tab http://localhost:5600/#/activity/clayton-Latitude-7400/view/;exit'
+# for filler windows 
+alias colors='/home/clayton/code/print_colors.sh'
+# navagate directories with fzf
+#alias fd='cd "$(dirname "$(find . -type d | fzf)")"'
+alias fd='cd "$(dirname "$(fzf)")"'
+alias fdf='find . -type d | fzf'
+
+# toggle posture notification cronjob
+alias postureOn='rm -i ~/code/postureCheck'
+alias postureOff='touch ~/code/postureCheck'
+
+#managing dotfiles with bare git repo
+alias dotfile='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+#### variables #### 
+
+
+#shortcut for piping to system clipboard 
+clip="xclip -selection clipboard"
+
+
+#easily access directory where I store scripts 
+scr=""~/code""
+
+# open matlab
+m='/usr/local/MATLAB/bin/matlab'
+
+# echo -e '\ Hi!!!!\n' | lolcat
+#/$HOME/OneDrive/Programming/startup.sh
+
+#### functions ####
+
+# be able to easily access i3 config 
+i3c (){
+cd ~/.config/i3 ; vim config
+}
+
+
+
+# find without timeshift 
+# F (){
+#	find / 2>/dev/null -path ./timeshift -prune -o -name "*$1*" 
+#}
+
+fnt (){
+
+find / 2>/dev/null ! -path "*timeshift/*"
+}
+
+#start matlab no desktop 
+mnd (){
+	$m -nodesktop -nosplash
+}
+
+# bandit ssh
+
+banditssh () {
+sshpass -f/home/clayton/code/banditPass/bandit$1 ssh -p 2220 bandit$1@bandit.labs.overthewire.org
+}
+
+banditscp () {
+	sshpass -f/home/clayton/code/banditPass/bandit$1 scp -P 2220 bandit$1@bandit.labs.overthewire.org:/tmp/clayton/file ~/code/banditPass/bandit$(($1+1)) 
+}
