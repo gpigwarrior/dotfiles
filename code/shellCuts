@@ -1,6 +1,6 @@
 
 
-### aliases #### 
+######## aliases #######
 
 alias red='redshift -O 5000'
 alias off='redshift -x'
@@ -13,18 +13,36 @@ alias aw='firefox --new-tab http://localhost:5600/#/activity/clayton-Latitude-74
 alias colors='/home/clayton/code/print_colors.sh'
 # navagate directories with fzf
 #alias fd='cd "$(dirname "$(find . -type d | fzf)")"'
-alias fd='cd "$(dirname "$(fzf)")"'
-alias fdf='find . -type d | fzf'
+ alias fdd='cd "$(dirname "$(fzf)")"'
+alias fdf='cd "$(find . -type d | fzf)'
 
 # toggle posture notification cronjob
 alias postureOn='rm -i ~/code/postureCheck'
 alias postureOff='touch ~/code/postureCheck'
 
+
 #managing dotfiles with bare git repo
 alias dotfile='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
-#### variables #### 
+# My typing program!
+alias typeclaft='~/code/typeclaft_python/typeclaft.py'
 
+#download websites with js 
+alias wgetall='wget \
+  --page-requisites \
+  --convert-links \
+  --span-hosts \
+  --no-directories '
+
+# defualt for i3lock
+alias i3lock="i3lock -c 222222 -u"
+
+alias "1234567890-"="echo ''"
+
+#do things with most recently modified file
+alias "cplast"='cp -iv "$(ls -t | head -1)"'
+alias "mvlast"='mv -iv "$(ls -t | head -1)"'
+####### variables ####### 
 
 #shortcut for piping to system clipboard 
 clip="xclip -selection clipboard"
@@ -39,7 +57,12 @@ m='/usr/local/MATLAB/bin/matlab'
 # echo -e '\ Hi!!!!\n' | lolcat
 #/$HOME/OneDrive/Programming/startup.sh
 
-#### functions ####
+# most recently modified file
+last="$(ls -t | head -1)"
+
+
+
+####### functions #######
 
 # be able to easily access i3 config 
 i3c (){
@@ -47,12 +70,10 @@ cd ~/.config/i3 ; vim config
 }
 
 
-
 # find without timeshift 
 # F (){
 #	find / 2>/dev/null -path ./timeshift -prune -o -name "*$1*" 
 #}
-
 fnt (){
 
 find / 2>/dev/null ! -path "*timeshift/*"
@@ -63,8 +84,8 @@ mnd (){
 	$m -nodesktop -nosplash
 }
 
-# bandit ssh
 
+# bandit ssh
 banditssh () {
 sshpass -f/home/clayton/code/banditPass/bandit$1 ssh -p 2220 bandit$1@bandit.labs.overthewire.org
 }
@@ -72,3 +93,9 @@ sshpass -f/home/clayton/code/banditPass/bandit$1 ssh -p 2220 bandit$1@bandit.lab
 banditscp () {
 	sshpass -f/home/clayton/code/banditPass/bandit$1 scp -P 2220 bandit$1@bandit.labs.overthewire.org:/tmp/clayton/file ~/code/banditPass/bandit$(($1+1)) 
 }
+
+#fzf stuff
+fuzzi () { 
+	$1 "$(find $HOME | fzf)" "$(fzf)"
+}
+

@@ -1,12 +1,12 @@
 
 set nocompatible 
-
 set mouse=a
-
 set viminfo=%,<200,'10,/50,:100
 " %buffer list, <lines in each register, 'marks, /searches, :commands
 
+set linebreak
 
+set cinoptions=:0,g0,(0,W4,m1
 " set clipboard=unnamedplus
 
 packadd termdebug
@@ -17,6 +17,7 @@ call plug#begin('~/.vim/plugged')
 "tpope 
 Plug 'tpope/vim-commentary' 
 Plug 'tpope/vim-sensible' 
+
 "colorschemes 
 Plug 'morhetz/gruvbox'
 Plug 'chriskempson/base16-vim'
@@ -29,6 +30,11 @@ Plug 'ghifarit53/tokyonight-vim'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'nanotech/jellybeans.vim'
 Plug 'sjl/badwolf'
+Plug 'sainnhe/gruvbox-material'
+Plug 'ayu-theme/ayu-vim'
+
+" syntax highlighting
+Plug 'sheerun/vim-polyglot'
 " Matlab
 "Plug ' jmarkow /vim-matlab' 
 Plug 'vim-scripts/MatlabFilesEdition'
@@ -45,7 +51,6 @@ Plug 'puremourning/vimspector' | " IDE/debugger
 Plug 'termhn/i3-vim-nav'  | "i3 and vim splits  
 Plug 'vifm/vifm.vim' | " vifm interface 
 call plug#end()
-
 
 
 
@@ -75,35 +80,54 @@ if (empty($TMUX))
   endif
 endif
 
-
 "autocmd vimenter * ++nested colorscheme gruvbox
-set bg=dark
+let g:gruvbox_material_foreground='original'
+        " For dark version.
+        set background=dark
 
-"let g:lightline = {
-"  \ 'colorscheme': 'onedark',
-"  \ }
-"syntax on
-
+        " Set contrast.
+        let g:gruvbox_material_background = 'medium'
 " let jellybeans use italics
 let g:jellybeans_use_term_italics = 1
 
-colorscheme dracula
+colorscheme gruvbox-material
+
 
 " extra colors for the colorscheme 
 ":hi Comment guifg=#998e85	| "comments
 ":hi Normal guibg=#1b1b1b	| "background
-:hi LineNr guifg=#565668	| "line numbers
+" :hi LineNr guifg=#565668	| "line numbers
 ":hi LineNr guifg=#555555	| "line numbers
-" :hi Search guibg=#2f9147	| " search highlighting 
-:hi Search guibg=#8e95bf	| " search highlighting 
+" :hi Search guibg=#2f9147	| " searchehighlighting 
+" :hi Search guibg=#8e95bf	| " search highlighting 
 
+ " au filetype * hi Search guibg=#3e3e3e Search guifg=NONE Search ctermbg=NONE Search cterm=NONE
+
+" au filetype * hi Search guibg=#3e3e3e 
+" au filetype * hi Search guifg=NONE 
+" au filetype * hi Search ctermbg=NONE 
+" au filetype * hi Search cterm=NONE
+
+" let g:netrw_banner = 0 | let g:netrw_liststyle = 3| let g:netrw_browse_split = 4| let g:netrw_altv = 1| let g:netrw_winsize = 25| nmap <silent> <C-e> :Lexplore<CR>
+
+
+au filetype * hi Search guibg=#3e3e3e guifg=NONE ctermbg=NONE cterm=NONE
 "extra stuff for tokyonight vim
 "set termguicolors
 "
 "let g:tokyonight_style = 'storm' " available: night, storm
 "let g:tokyonight_enable_italic = 1
 "
-"colorscheme tokyonight
+"uolorscheme tokyonight
+"set background =dark
+au filetype * hi Search guibg=#3e3e3e guifg=NONE ctermbg=NONE cterm=NONE
+"extra stuff for tokyonight vim
+"set termguicolors
+"
+"let g:tokyonight_style = 'storm' " available: night, storm
+"let g:tokyonight_enable_italic = 1
+"
+"uolorscheme tokyonight
 "set background =dark
 
 
@@ -120,10 +144,12 @@ colorscheme dracula
 nnoremap o o<Esc>
 nnoremap O O<Esc>
 
-" autoindent on new lines 
+
+syntax on 
+" autoindent
 filetype plugin indent on
 set autoindent
-
+" au filetype python setl shiftwidth=4 tabstop=4
 
 " set jk to esc in insert and visual mode  
 inoremap jk <esc>
@@ -183,16 +209,22 @@ set hlsearch
 set viminfo='1000,h
 set hidden
 set undofile 
-set backspace=indent,eol,start 
+" set backspace=indent,eol,start 
 set wildmenu 
 
 " wildmenu more comfortable
 set wildmode=longest:list,full
+
+" case insensative search
+set ignorecase
+set smartcase
+
+
 " i3 amd vim splits 
-nnoremap <silent> <C-l> :call Focus('right', 'l')<CR>
-nnoremap <silent> <C-h> :call Focus('left', 'h')<CR>
-nnoremap <silent> <C-k> :call Focus('up', 'k')<CR>
-nnoremap <silent> <C-j> :call Focus('down', 'j')<CR>
+" nnoremap <silent> <C-l> :call Focus('right', 'l')<CR>
+" nnoremap <silent> <C-h> :call Focus('left', 'h')<CR>
+" nnoremap <silent> <C-k> :call Focus('up', 'k')<CR>
+" nnoremap <silent> <C-j> :call Focus('down', 'j')<CR>
 
 " vimspector 
 let g:vimspector_enable_mappings = 'HUMAN'
@@ -215,3 +247,22 @@ let g:vimspector_enable_mappings = 'HUMAN'
 "
 " You should not turn this setting on if you wish to use ALE as a completion source for other completion plugins, like Deoplete.  let g:ale_completion_enabled = 1
 " autocmd FileType matlab :set commentsting=%%s
+
+
+" smooth scrolling
+nnoremap <silent> <c-u> :call <sid>smoothScroll(1)<cr>
+nnoremap <silent> <c-d> :call <sid>smoothScroll(0)<cr>
+
+fun! s:smoothScroll(up)
+  execute "normal " . (a:up ? "\<c-y>" : "\<c-e>")
+  redraw
+  for l:count in range(3, &scroll, 2)
+    sleep 7m
+    execute "normal " . (a:up ? "\<c-y>" : "\<c-e>")
+    redraw
+  endfor
+  " bring the cursor in the middle of screen 
+  execute "normal M"
+endf
+
+
