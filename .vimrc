@@ -1,4 +1,4 @@
-
+"test
 set nocompatible 
 set mouse=a
 set viminfo=%,<200,'10,/50,:100
