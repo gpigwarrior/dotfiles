@@ -4,6 +4,9 @@ set mouse=a
 set viminfo=%,<200,'10,/50,:100
 " %buffer list, <lines in each register, 'marks, /searches, :commands
 
+" initially put in because of vimTeX
+set encoding=utf-8
+
 set linebreak
 
 set cinoptions=:0,g0,(0,W4,m1
@@ -13,10 +16,17 @@ packadd termdebug
 
 " Plugins! 
 call plug#begin('~/.vim/plugged') 
+
+nnoremap <Space> <Nop>
+let mapleader=" " 
+let maplocalleader=" " 
+
 "List your plugins here 
+
 "tpope 
 Plug 'tpope/vim-commentary' 
 Plug 'tpope/vim-sensible' 
+Plug 'tpope/vim-surround' 
 
 "colorschemes 
 Plug 'morhetz/gruvbox'
@@ -37,7 +47,8 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'sheerun/vim-polyglot'
 " Matlab
 "Plug ' jmarkow /vim-matlab' 
-Plug 'vim-scripts/MatlabFilesEdition'
+Plug 'lervag/vimtex' | " latex 
+" Plug 'vim-scripts/MatlabFilesEdition'
 "Plug 'lazywei/vim-matlab'
 "Plug 'ibbo/mlint.vim'
 
@@ -109,7 +120,6 @@ colorscheme gruvbox-material
 " au filetype * hi Search cterm=NONE
 
 " let g:netrw_banner = 0 | let g:netrw_liststyle = 3| let g:netrw_browse_split = 4| let g:netrw_altv = 1| let g:netrw_winsize = 25| nmap <silent> <C-e> :Lexplore<CR>
-
 
 au filetype * hi Search guibg=#3e3e3e guifg=NONE ctermbg=NONE cterm=NONE
 "extra stuff for tokyonight vim
@@ -189,6 +199,8 @@ autocmd FileType * set formatoptions-=o
 
 
 autocmd FileType matlab set commentstring=%%s
+autocmd FileType octave set commentstring=%%s
+" autocmd FileType m set commentstring=%%s
 
 
 

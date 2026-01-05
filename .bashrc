@@ -124,7 +124,7 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 
-source ~/code/shellCuts
+source ~/code/shellCuts.sh
 
 #### aliases #### 
 

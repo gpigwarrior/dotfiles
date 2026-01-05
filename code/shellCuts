@@ -99,3 +99,5 @@ fuzzi () {
 	$1 "$(find $HOME | fzf)" "$(fzf)"
 }
 
+/* localectl set-x11-keymap us pc105 basic ctrl:swapcaps */
+/* usefull for keybinds */
