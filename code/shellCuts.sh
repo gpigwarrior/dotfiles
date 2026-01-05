@@ -1,0 +1,119 @@
+
+
+######## aliases #######
+
+alias red='redshift -O 5000'
+alias off='redshift -x'
+alias mat='/usr/local/matlab/bin/matlab;bg;exit'
+# alias to make fzf open vim
+alias f='vim "$(fzf)"'
+# fastfetch
+alias aw='firefox --new-tab http://localhost:5600/#/activity/clayton-Latitude-7400/view/;exit'
+# for filler windows 
+alias colors='/home/clayton/code/print_colors.sh'
+# navagate directories with fzf
+#alias fd='cd "$(dirname "$(find . -type d | fzf)")"'
+ alias fdd='cd "$(dirname "$(fzf)")"'
+alias fdf='cd "$(find . -type d | fzf)'
+
+# toggle posture notification cronjob
+alias postureOn='rm -i ~/code/postureCheck'
+alias postureOff='touch ~/code/postureCheck'
+
+
+#managing dotfiles with bare git repo
+alias dotfile='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+# My typing program!
+alias typeclaft='~/code/typeclaft_python/typeclaft.py'
+
+#download websites with js 
+alias wgetall='wget \
+  --page-requisites \
+  --convert-links \
+  --span-hosts \
+  --no-directories '
+
+# defualt for i3lock
+alias i3lock="i3lock -c 222222 -u"
+
+alias "1234567890-"="echo ''"
+
+#do things with most recently modified file
+alias "cplast"='cp -iv "$(ls -t | head -1)"'
+alias "mvlast"='mv -iv "$(ls -t | head -1)"'
+
+alias cddesk="cd /usr/share/applications"
+
+
+alias brightness="sudo brightnessctl -d intel_backlight set"
+
+alias untitledstory="cd '/home/clayton/Program_files/AnUntitledStory/' && wine AnUntitledStory.exe"
+
+# prevent annoying reocvery popup
+alias libreoffice="libreoffice --norestore"
+
+alias thermo='exec i3-msg "split v ; layout stacking" & okular ~/onedrive/thermo/refrence_sheets/* & sleep 2 && exit' 
+
+#clipboard support for vim 
+alias vim=vimx
+
+####### variables ####### 
+
+#shortcut for piping to system clipboard 
+clip="xclip -selection clipboard"
+
+
+#easily access directory where I store scripts 
+scr=""~/code""
+
+# open matlab
+m='/usr/local/MATLAB/bin/matlab'
+
+# echo -e '\ Hi!!!!\n' | lolcat
+#/$HOME/OneDrive/Programming/startup.sh
+
+# most recently modified file
+last="$(ls -t | head -1)"
+
+
+####### functions #######
+
+# be able to easily access i3 config 
+i3c (){
+cd ~/.config/i3 ; vim config
+}
+
+
+# find without timeshift 
+# F (){
+#	find / 2>/dev/null -path ./timeshift -prune -o -name "*$1*" 
+#}
+fnt (){
+
+find / 2>/dev/null ! -path "*timeshift/*"
+}
+
+#start matlab no desktop 
+mnd (){
+	$m -nodesktop -nosplash
+}
+
+
+# bandit ssh
+banditssh () {
+sshpass -f/home/clayton/code/banditPass/bandit$1 ssh -p 2220 bandit$1@bandit.labs.overthewire.org
+}
+
+banditscp () {
+	sshpass -f/home/clayton/code/banditPass/bandit$1 scp -P 2220 bandit$1@bandit.labs.overthewire.org:/tmp/clayton/file ~/code/banditPass/bandit$(($1+1)) 
+}
+
+#fzf stuff
+fuzzi () { 
+	$1 "$(find $HOME | fzf)" "$(fzf)"
+}
+
+###### saved commands ######  
+
+# cat neofetch_distros.txt | xargs -I % sh -c 'neofetch --ascii_distro % -L'; rm neofetch_distros.txt
