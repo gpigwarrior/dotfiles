@@ -1,4 +1,4 @@
-
+"test
 set nocompatible 
 set mouse=a
 set viminfo=%,<200,'10,/50,:100
@@ -15,6 +15,8 @@ set cinoptions=:0,g0,(0,W4,m1
 packadd termdebug
 
 " Plugins! 
+so ~/commentary.vim
+
 call plug#begin('~/.vim/plugged') 
 
 nnoremap <Space> <Nop>
@@ -24,7 +26,7 @@ let maplocalleader=" "
 "List your plugins here 
 
 "tpope 
-Plug 'tpope/vim-commentary' 
+" Plug 'tpope/vim-commentary' 
 Plug 'tpope/vim-sensible' 
 Plug 'tpope/vim-surround' 
 
@@ -57,6 +59,7 @@ Plug 'lervag/vimtex' | " latex
 " Plug 'neoclide/coc.nvim', {'branch': 'release'} | " autocomplete
 " Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm ci'}lug 'dense-analysis/ale' | " linter 
 Plug 'puremourning/vimspector' | " IDE/debugger 
+Plug 'stevearc/vim-arduino'
 
 " other 
 Plug 'termhn/i3-vim-nav'  | "i3 and vim splits  
